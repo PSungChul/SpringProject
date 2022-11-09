@@ -7,7 +7,7 @@
 		
 		<property name="dataSource" ref="ds"/>
 		<property name="configLocation"
-				  value="classpath*:config/mybatis/mybatis-config.xml"/>
+				  value="classpath:config/mybatis/mybatis-config.xml"/>
 		
 	</bean>
 	

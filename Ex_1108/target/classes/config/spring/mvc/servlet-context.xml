@@ -16,17 +16,22 @@
 	<resources mapping="/resources/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
+	</beans:bean> -->
 	
 	<!-- @Component
 		    ㄴ@Service
 		    ㄴ@Controller
 		    ㄴ@Repository -->
-	<context:component-scan base-package="com.korea.db" />
+	<!-- <context:component-scan base-package="com.korea.db" /> -->
 	
+	<!-- 컨트롤러의 수동생성 -->
+	<beans:bean class="controller.DeptController">
+		<!-- <beans:property name="dept_dao" ref="dept_dao"/> -->
+		<beans:constructor-arg ref="dept_dao"/>
+	</beans:bean>
 	
 	
 </beans:beans>
