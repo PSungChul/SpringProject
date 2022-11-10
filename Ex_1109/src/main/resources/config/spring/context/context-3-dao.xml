@@ -2,9 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
-	<bean id="emp_dao" class="dao.EmpDAO">
+	<!-- emp -->
+	<bean id="emp_daoBean" class="dao.EmpDAO">
 		<constructor-arg ref="sqlSessionBean"/>
+	</bean>
+	<!-- user -->
+	<bean id="user_daoBean" class="dao.UserDAO">
+		<property name="sqlSession" ref="sqlSessionBean"></property>
 	</bean>
 		
 </beans>

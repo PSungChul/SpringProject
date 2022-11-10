@@ -14,8 +14,6 @@
 	
 	<mappers>
 		<mapper resource="config/mybatis/mapper/emp.xml" />
-		<!-- <mapper resource="config/mybatis/mapper/board_insert.xml" />
-		<mapper resource="config/mybatis/mapper/board_update.xml" />
-		<mapper resource="config/mybatis/mapper/board_delete.xml" /> -->
+		<mapper resource="config/mybatis/mapper/user.xml" />
 	</mappers>
 </configuration>

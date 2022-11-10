@@ -30,8 +30,12 @@
 	<!-- 컨트롤러의 수동생성 -->
 	<beans:bean class="com.korea.emp.EmpController">
 		<!-- <beans:property name="dept_dao" ref="dept_dao"/> -->
-		<beans:property name="emp_dao" ref="emp_dao"></beans:property>
+		<beans:property name="emp_dao" ref="emp_daoBean"></beans:property>
 	</beans:bean>
 	
+	<beans:bean class="com.korea.emp.UserController">
+		<!-- <beans:property name="dept_dao" ref="dept_dao"/> -->
+		<beans:property name="user_dao" ref="user_daoBean"></beans:property>
+	</beans:bean>
 	
 </beans:beans>
