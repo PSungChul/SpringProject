@@ -20,7 +20,7 @@
 	
 	<c:forEach var="vo" items="${ list }">
 		<div class="visit_box">
-			<div class="type_content">${ vo.content }</div>
+			<div class="type_content"><pre>${ vo.content }</pre></div>
 			<div class="type_name">${ vo.name }(${ vo.ip })</div>
 			<div class="type_regdate">작성일 : ${ vo.regdate }</div>
 			
