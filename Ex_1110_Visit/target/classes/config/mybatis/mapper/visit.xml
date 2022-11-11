@@ -23,6 +23,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			sysdate
 		)
 	</insert>
+	
+	<!-- 글 삭제 -->
+	<delete id="visit_delete" parameterType="int">
+		delete from visit where idx=#{idx}
+	</delete>
+	
+	<!-- 수정을 위한 게시글 한 건 조회 -->
+	<select id="visit_one" resultType="visit" parameterType="int">
+		select * from visit where idx=#{idx}
+	</select>
+	
+	<!-- 글 수정 -->
+	<update id="v.visit_update" parameterType="visit">
+		update visit set
+		name=#{name},
+		content=#{content},
+		pwd=#{pwd},
+		ip=#{ip},
+		regdate=sysdate
+		where idx=#{idx}
+	</update>
 </mapper>
 
 

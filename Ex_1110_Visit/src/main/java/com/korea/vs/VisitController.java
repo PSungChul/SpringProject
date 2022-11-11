@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.VisitDAO;
 import util.Comm;
@@ -35,7 +36,7 @@ public class VisitController {
 	public String insert_form() {
 		return Comm.VIEW_PATH + "visit_insert_form.jsp";
 	}
-	
+	// 게시글 작성
 	@RequestMapping("/insert.do")
 	// 나중에 받아올 값이 많아지면 힘들어지기에 잘 안쓴다.
 	// public String insert(String name, String content, String pwd) {
@@ -52,5 +53,70 @@ public class VisitController {
 		
 		// redirect: view로 이동하는 것이 아닌, 컨트롤러의 url매핑을 호출하기 위한 키워드
 		return "redirect:list.do";
+	}
+	
+	// 게시글 삭제
+	@RequestMapping("delete.do")
+	@ResponseBody // Ajax로 요청된 메소드는 결과를 콜백메소드로 돌려주기 위해 반드시 @ResponseBody가 필요!!
+	public String delete(int idx) {
+		// delete.do?idx=1
+		int res = visit_dao.delete(idx);
+		
+		String result = "no";
+		if ( res == 1 ) {
+			result = "yes";
+		}
+		
+		// yes, no값을 가지고 콜백메소드(resultFn)로 돌아간다
+		// 콜백으로 리턴되는 값은 영문으로 보내준다 (한글로 보내면 한글이 깨져서 나온다)
+		return result;
+	}
+	
+	// 글 수정 폼으로 전환
+	@RequestMapping("/modify_form.do")
+	public String modify_form(Model model, int idx) {
+		// modify_form.do?idx=2&pwd=1111&c_pwd=1111
+		VisitVO vo = visit_dao.selectOne(idx);
+		
+		if ( vo != null ) {
+			model.addAttribute("vo", vo);
+		}
+		
+		return Comm.VIEW_PATH + "visit_modify_form.jsp";
+	}
+	
+//	// 게시글 수정하기
+//	@RequestMapping("/modify.do")
+//	@ResponseBody
+//	public String modify( VisitVO vo, HttpServletRequest request ) {
+//		// modify.do?idx=2&name=hong&content=가나다&pwd=1111
+//		String ip = request.getRemoteAddr();
+//		vo.setIp(ip);
+//		
+//		int res = visit_dao.update(vo);
+//		
+//		String result = "no";
+//		if ( res != 0 ) {
+//			result = "yes";
+//		}
+//		
+//		return result;
+//	}
+	
+	@RequestMapping("/modify.do")
+	@ResponseBody
+	public String modify( VisitVO vo, HttpServletRequest request ) {
+		// modify.do?idx=2&name=hong&content=가나다&pwd=1111
+		String ip = request.getRemoteAddr();
+		vo.setIp(ip);
+		
+		int res = visit_dao.update(vo);
+		
+		String result = "{'result':'no'}";
+		if ( res != 0 ) {
+			result = "{'result':'yes'}";
+		}
+		
+		return result;
 	}
 }

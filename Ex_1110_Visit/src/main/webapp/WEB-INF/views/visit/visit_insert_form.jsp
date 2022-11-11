@@ -6,33 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<script>
-	function send(f) {
-		
-		let name = f.name.value;
-		let content = f.content.value;
-		let pwd = f.pwd.value;
-		// 유효성 체크
-		if ( name == '' ) {
-			alert("이름은 필수입니다.");
-			return;
-		}
-		if ( content == '' ) {
-			alert("내용은 필수입니다.");
-			return;
-		}
-		if ( pwd == '' ) {
-			alert("비밀번호는 필수입니다.");
-			return;
-		}
-		
-		f.action = "insert.do";
-		f.method="post";
-		f.submit();
-	}
-</script>
-
 </head>
 <body>
 	<form>
@@ -68,5 +41,31 @@
 			</tr>
 		</table>
 	</form>
+	
+	<script>
+		function send(f) {
+		
+			let name = f.name.value;
+			let content = f.content.value;
+			let pwd = f.pwd.value;
+			// 유효성 체크
+			if ( name == '' ) {
+				alert("이름은 필수입니다.");
+				return;
+			}
+			if ( content == '' ) {
+				alert("내용은 필수입니다.");
+				return;
+			}
+			if ( pwd == '' ) {
+				alert("비밀번호는 필수입니다.");
+				return;
+			}
+		
+			f.action = "insert.do";
+			f.method="post";
+			f.submit();
+		}
+	</script>
 </body>
 </html>
