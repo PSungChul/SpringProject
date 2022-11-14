@@ -27,6 +27,9 @@
 		    ㄴ@Repository -->
 	<!-- <context:component-scan base-package="com.korea.db" /> -->
 	
+	<!-- @Autowired(자동생성)을 위해 반드시 필요한 코드 -->
+	<context:annotation-config/>
+	
 	<!-- 컨트롤러의 수동생성 -->
 	<beans:bean class="com.korea.vs.VisitController">
 		<beans:property name="visit_dao" ref="visit_daoBean"/>

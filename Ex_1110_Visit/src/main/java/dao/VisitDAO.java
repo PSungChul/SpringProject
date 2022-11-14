@@ -9,7 +9,7 @@ import vo.VisitVO;
 public class VisitDAO {
 	// sqlSession
 	SqlSession sqlSession;
-	// setter 인젝션
+	// setter injection
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}

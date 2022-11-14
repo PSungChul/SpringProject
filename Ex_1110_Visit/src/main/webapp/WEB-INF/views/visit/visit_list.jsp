@@ -20,7 +20,12 @@
 	
 	<c:forEach var="vo" items="${ list }">
 		<div class="visit_box">
-			<div class="type_content"><pre>${ vo.content }</pre></div>
+			<div class="type_content"><pre>${ vo.content }</pre><br>
+				<!-- 첨부된 이미지가 있는 경우에만 img태그를 보여주자! -->
+				<c:if test="${ vo.filename ne 'no_file' }">
+					<img src="/vs/resources/upload/${ vo.filename }" width="200">
+				</c:if>
+			</div>
 			<div class="type_name">${ vo.name }(${ vo.ip })</div>
 			<div class="type_regdate">작성일 : ${ vo.regdate }</div>
 			
@@ -51,7 +56,7 @@
 				alert("비밀번호 불일치");
 				return;
 			}
-			// confirm 설명 다시보기 - 1교시
+			
 			if ( !confirm('정말 삭제하시겠습니까?') ) {
 				return;
 			}

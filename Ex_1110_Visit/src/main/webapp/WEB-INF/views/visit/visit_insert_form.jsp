@@ -8,7 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form>
+	<!-- 파일전송시
+	enctype="multipart/form-data"
+	method="POST"
+	속성이 필수적으로 추가되어 있어야 한다 -->
+	<form method="POST" enctype="multipart/form-data">
 		<table border="1" align="center">
 			<caption>:::새 글 쓰기:::</caption>
 			
@@ -34,6 +38,11 @@
 			</tr>
 			
 			<tr>
+				<th>파일첨부</th>
+				<td><input type="file" name="photo"></td>
+			</tr>
+			
+			<tr>
 				<td colspan="2" align="center">
 					<input type="button" value="글쓰기" onclick="send(this.form);">
 					<input type="button" value="취소" onclick="location.href='list.do'">
@@ -44,7 +53,6 @@
 	
 	<script>
 		function send(f) {
-		
 			let name = f.name.value;
 			let content = f.content.value;
 			let pwd = f.pwd.value;
@@ -61,9 +69,9 @@
 				alert("비밀번호는 필수입니다.");
 				return;
 			}
-		
+			
 			f.action = "insert.do";
-			f.method="post";
+			f.method = "post";
 			f.submit();
 		}
 	</script>
