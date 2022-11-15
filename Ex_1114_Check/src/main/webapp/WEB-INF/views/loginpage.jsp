@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	나는 로그인 페이지<br>
-	
 	<form>
 		<table border="1" align="center">
 			<tr>
