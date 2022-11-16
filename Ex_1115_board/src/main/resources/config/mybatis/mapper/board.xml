@@ -27,6 +27,50 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
+	<!-- idx에 해당하는 게시글 한건 상세보기 -->
+	<select id="board_one" resultType="board" parameterType="int">
+		select * from board where idx=#{idx}
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="update_readhit" parameterType="int">
+		update BOARD set readhit = readhit + 1
+		where idx=#{idx}
+	</update>
+	
+	<!-- 댓글처리를 위한 step값 증가 -->
+	<update id="update_step" parameterType="board">
+		update BOARD set step = step + 1
+		where ref=#{ref} and step > #{step}
+	</update>
+	
+	<!-- 댓글 작성 -->
+	<insert id="board_reply" parameterType="board">
+		insert into board values(
+			seq_board_idx.nextVal,
+			#{name},
+			#{subject},
+			#{content},
+			#{pwd},
+			#{ip},
+			sysdate,
+			0,
+			#{ref},
+			#{step},
+			#{depth},
+			0
+		)
+	</insert>
+	
+	<!-- 삭제용 업데이트 -->
+	<update id="del_update" parameterType="board">
+		update BOARD set
+		subject = #{subject},
+		name = #{name},
+		del_info = -1
+		where idx=#{idx}
+	</update>
+	
 </mapper>
 
 

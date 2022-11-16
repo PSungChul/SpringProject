@@ -43,11 +43,25 @@
 					ㄴ
 					</c:if>
 					
-					<a href="view.do?idx=${vo.idx}">${ vo.subject }</a>
+					<c:if test="${ vo.del_info ne -1 }">
+						<a href="view.do?idx=${vo.idx}">${ vo.subject }</a>
+					</c:if>
+					
+					<c:if test="${ vo.del_info eq -1 }">
+						<font color="gray">${ vo.subject }</font>
+					</c:if>
 				</td>
 				
 				<td align="center">${ vo.name }</td>
-				<td align="center">${fn:split(vo.regdate, ' ')[0]}</td>
+				
+				<c:if test="${ vo.del_info ne -1 }">
+					<td align="center">${fn:split(vo.regdate, ' ')[0]}</td>
+				</c:if>
+				
+				<c:if test="${ vo.del_info eq -1 }">
+					<td align="center">unknown</td>
+				</c:if>
+				
 				<td align="center">${ vo.readhit }</td>
 			</tr>
 		</c:forEach>

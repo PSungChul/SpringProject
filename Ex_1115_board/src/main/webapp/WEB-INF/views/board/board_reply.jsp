@@ -8,6 +8,9 @@
 </head>
 <body>
 	<form>
+	
+		<input type="hidden" name="idx" value="${ param.idx }">
+		
 		<table border="1" align="center">
 			<tr>
 				<th>제목</th>
@@ -46,27 +49,27 @@
 			let pwd = f.pwd.value.trim();
 			
 			// 유효성 체크
-			if ( subject == '' ) {
+			if ( subject = '' ) {
 				alert("제목은 필수입니다");
 				return;
 			}
 			
-			if ( name == '' ) {
+			if ( name = '' ) {
 				alert("이름은 필수입니다");
 				return;
 			}
 			
-			if ( content == '' ) {
+			if ( content = '' ) {
 				alert("내용은 한글자 이상 필수입니다");
 				return;
 			}
 			
-			if ( pwd == '' ) {
+			if ( pwd = '' ) {
 				alert("비밀번호는 필수입니다");
 				return;
 			}
 			
-			f.action = "insert.do";
+			f.action = "reply.do";
 			f.method = "post";
 			f.submit();
 		}

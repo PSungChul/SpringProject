@@ -92,13 +92,11 @@ public class VisitController {
 			}
 			
 			try {
-				// 업로드를 위한 파일을 실제로 등록해주는 메서드
+				// 업로드를 위한 파일을 실제로 등록해주는 메소드
 				photo.transferTo(saveFile);
 			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
