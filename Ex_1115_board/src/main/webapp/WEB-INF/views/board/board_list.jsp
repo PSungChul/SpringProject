@@ -44,7 +44,7 @@
 					</c:if>
 					
 					<c:if test="${ vo.del_info ne -1 }">
-						<a href="view.do?idx=${vo.idx}">${ vo.subject }</a>
+						<a href="view.do?idx=${vo.idx}&page=${param.page}">${ vo.subject }</a>
 					</c:if>
 					
 					<c:if test="${ vo.del_info eq -1 }">
@@ -68,7 +68,7 @@
 		
 		<tr>
 			<td colspan="5" align="center">
-				&lt; 1 2 3 &gt;
+				${ pageMenu }
 			</td>
 		</tr>
 		

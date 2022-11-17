@@ -106,7 +106,7 @@
 			
 			// modify_form.do?idx=2&pwd=1111&c_pwd=1111
 			f.action = "modify_form.do";
-			f.method = "post"
+			f.method = "post";
 			f.submit();
 			
 		}

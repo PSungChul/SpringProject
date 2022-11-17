@@ -1,5 +1,6 @@
 package com.korea.bbs;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.BoardDAO;
 import util.Common;
+import util.Paging;
 import vo.BoardVO;
 
 @Controller
@@ -29,12 +31,35 @@ public class BoardController {
 	
 	// 게시글 전체목록 조회
 	@RequestMapping( value= {"/", "/list.do"} )
-	public String list() {
+	public String list( Integer page ) {
 		
-		List<BoardVO> list = board_dao.selectList();
+		// list.do? ----------> null
+		// list.do?page= -----> empty
+		int nowPage = 1;
+		
+		if ( page != null ) {
+			nowPage = page;
+		}
+		
+		// 한 페에지에 표시되는 게시물의 시작번호와 끝번호를 계산
+		int start = (nowPage - 1) * Common.BLOCKLIST + 1;
+		int end = start + Common.BLOCKLIST - 1;
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("start", start);
+		map.put("end", end);
+		
+		// 페이지별 목록조회
+		List<BoardVO> list = board_dao.selectList(map);
+		
+		// 전체 게시물의 갯수 구하기
+		int row_total = board_dao.getRowTotal();
+		
+		// 위의 정보들을 기반으로 하단의 페이지 메뉴를 생성
+		String pageMenu = Paging.getPaging("list.do", nowPage, row_total, Common.BLOCKLIST, Common.BLOCKPAGE);
 		
 		// list 바인딩
 		request.setAttribute("list", list);
+		request.setAttribute("pageMenu", pageMenu);
 		
 		// 세션을 비운다
 		HttpSession session = request.getSession();
@@ -91,7 +116,13 @@ public class BoardController {
 	
 	// 댓글 처리
 	@RequestMapping("/reply.do")
-	public String reply( BoardVO vo ) {
+	public String reply( BoardVO vo, Integer page ) {
+		
+		int nowPage = 1;
+		
+		if ( page != null ) {
+			nowPage = page;
+		}
 		
 		// 댓글이 달릴 게시물
 		BoardVO base_vo = board_dao.selectOne(vo.getIdx());
@@ -108,7 +139,7 @@ public class BoardController {
 		
 		// 댓글을 DB에 insert
 		board_dao.reply(vo);
-		return "redirect:list.do";
+		return "redirect:list.do?page=" + nowPage;
 		
 	}
 	
@@ -135,4 +166,31 @@ public class BoardController {
 		return result;
 	}
 	
+	// 글 수정 폼으로 전환
+	@RequestMapping("/modify_form.do")
+	public String modify_form(Model model, int idx) {
+		BoardVO vo = board_dao.selectOne(idx);
+		
+		if ( vo != null ) {
+			model.addAttribute("vo", vo);
+		}
+		
+		return Common.PATH + "board_modify.jsp";
+	}
+	
+	@RequestMapping("/modify.do")
+	@ResponseBody
+	public String modify( BoardVO vo ) {
+		String ip = request.getRemoteAddr();
+		vo.setIp(ip);
+		
+		int res = board_dao.update(vo);
+		
+		String result = "{'result':'no'}";
+		if ( res != 0 ) {
+			result = "{'result':'yes'}";
+		}
+		
+		return result;
+	}
 }

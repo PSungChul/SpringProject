@@ -9,6 +9,8 @@
 </head>
 <body>
 	<form id="ff">
+		<input type="hidden" name="pwd" value=${ vo.pwd }>
+		<input type="hidden" name="idx" value=${ vo.idx }>
 		<table border="1" align="center" width="600">
 			<caption>::: 상세보기 :::</caption>
 			<tr>
@@ -33,11 +35,13 @@
 			
 			<tr>
 				<td colspan="2">
-					<input type="button" value="목록보기" onclick="location.href='list.do'">
+					<input type="button" value="목록보기" onclick="location.href='list.do?page=${param.page}'">
 					
 					<c:if test="${ vo.depth eq 0 }">
 						<input type="button" value="댓글" onclick="reply()">
 					</c:if>
+					
+					<input type="button" value="수정" onclick="modify()">
 					
 					<input type="button" value="삭제" onclick="del()">
 				</td>
@@ -56,7 +60,7 @@
 	<script>
 		function reply() {
 			
-			location.href="reply_form.do?idx=${vo.idx}";
+			location.href="reply_form.do?idx=${vo.idx}&page=${param.page}";
 			
 		}
 		
@@ -66,7 +70,7 @@
 			let c_pwd = ff.c_pwd.value;
 			
 			if ( c_pwd != ${vo.pwd} ) {
-				alert("비밀번호 불일치")
+				alert("비밀번호 불일치");
 				return;
 			}
 			
@@ -93,9 +97,25 @@
 				}
 				
 				alert("삭제성공");
-				location.href="list.do";
+				location.href="list.do?page=${param.page}";
 				
 			}
+			
+		}
+		
+		function modify() {
+			let ff = document.getElementById("ff");
+			let pwd = ff.pwd.value;
+			let c_pwd = ff.c_pwd.value;
+			
+			if ( c_pwd != pwd ) {
+				alert("비밀번호 불일치");
+				return;
+			}
+			
+			ff.action = "modify_form.do?page=${param.page}";
+			ff.method = "post";
+			ff.submit();
 			
 		}
 	</script>

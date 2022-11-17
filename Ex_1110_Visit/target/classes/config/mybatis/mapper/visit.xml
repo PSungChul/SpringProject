@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 글 수정 -->
-	<update id="v.visit_update" parameterType="visit">
+	<update id="visit_update" parameterType="visit">
 		update visit set
 		name=#{name},
 		content=#{content},

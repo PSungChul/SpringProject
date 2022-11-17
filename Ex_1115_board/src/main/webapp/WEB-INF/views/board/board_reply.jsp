@@ -35,7 +35,7 @@
 			<tr>
 				<td colspan="2">
 					<input type="button" value="등록하기" onclick="send_check(this.form)">
-					<input type="button" value="취소" onclick="location.href='list.do'">
+					<input type="button" value="취소" onclick="location.href='list.do?page=${param.page}'">
 				</td>
 			</tr>
 		</table>
@@ -49,27 +49,27 @@
 			let pwd = f.pwd.value.trim();
 			
 			// 유효성 체크
-			if ( subject = '' ) {
+			if ( subject == '' ) {
 				alert("제목은 필수입니다");
 				return;
 			}
 			
-			if ( name = '' ) {
+			if ( name == '' ) {
 				alert("이름은 필수입니다");
 				return;
 			}
 			
-			if ( content = '' ) {
+			if ( content == '' ) {
 				alert("내용은 한글자 이상 필수입니다");
 				return;
 			}
 			
-			if ( pwd = '' ) {
+			if ( pwd == '' ) {
 				alert("비밀번호는 필수입니다");
 				return;
 			}
 			
-			f.action = "reply.do";
+			f.action = "reply.do?page=${param.page}";
 			f.method = "post";
 			f.submit();
 		}
